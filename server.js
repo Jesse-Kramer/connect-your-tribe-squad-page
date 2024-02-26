@@ -27,14 +27,16 @@ app.get('/', function (request, response) {
   // Haal alle personen uit de WHOIS API op
   var query = request.query;
 
-  var url = apiUrl + '/person' ;
+  var url = apiUrl + '/person';
 
   if (query.name || query.id) {
     var queryString = '?filter={';
     var filters = [];
 
     if (query.name) {
-      filters.push('"name":"' + encodeURIComponent(query.name) + '"');
+      // Zet de naam eerst volledig naar kleine letters en vervolgens de eerste letter naar hoofdletter
+      var formattedName = query.name.toLowerCase().charAt(0).toUpperCase() + query.name.toLowerCase().slice(1);
+      filters.push('"name":"' + encodeURIComponent(formattedName) + '"');
     }
 
     if (query.id) {
@@ -75,7 +77,7 @@ app.get('/person/:id', function (request, response) {
   // Gebruik de request parameter id en haal de juiste persoon uit de WHOIS API op
   fetchJson(apiUrl + '/person/' + request.params.id).then((apiData) => {
     // Render person.ejs uit de views map en geef de opgehaalde data mee als variable, genaamd person
-    response.render('person', {person: apiData.data, squads: squadData.data})
+    response.render('person', { person: apiData.data, squads: squadData.data })
   })
 })
 
