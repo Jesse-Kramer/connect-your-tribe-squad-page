@@ -38,8 +38,17 @@ app.get('/', function (request, response) {
     }
 
     if (query.id) {
-      filters.push('"id":"' + encodeURIComponent(query.id) + '"');
+      filters.push('"squad_id":"' + encodeURIComponent(query.id) + '"');
     }
+
+    queryString += filters.join(', ') + '}';
+
+    url += queryString;
+  } else {
+    // Maak url alleen voor squad_id 4
+    var queryString = '?filter={';
+    var filters = [];
+    filters.push('"squad_id":"' + 4 + '"');
 
     queryString += filters.join(', ') + '}';
 
