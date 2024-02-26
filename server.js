@@ -16,6 +16,9 @@ const app = express()
 // Stel ejs in als template engine
 app.set('view engine', 'ejs')
 
+// Zorg dat werken met request data makkelijker wordt 
+app.use(express.urlencoded({extended: true}))
+
 // Stel de map met ejs templates in
 app.set('views', './views')
 

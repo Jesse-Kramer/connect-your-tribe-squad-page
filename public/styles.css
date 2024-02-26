@@ -562,6 +562,11 @@ select {
 /* -------------section-3----------------
 */
 
+svg {
+  position: absolute;
+  right: 1em;
+}
+
 .filter-container,
 .member-container {
   margin: 2em 0 0 0;
@@ -619,7 +624,7 @@ select {
       border-top: solid .08em var(--white);
       border-bottom: solid .08em var(--white);
       overflow: hidden;
-      display: flex;
+      /* display: flex; */
       flex-direction: column;
       justify-content: center;
 
