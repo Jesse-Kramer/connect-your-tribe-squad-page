@@ -71,10 +71,6 @@
           <li>
             <div class="overlay"></div>
             <div class="gradient"></div>
-<<<<<<< Updated upstream
-            <img id="personImage" src="/persons/<%= person.name %>.png"
-              onerror="this.onerror=null;this.src='/persons/No-photo.png';">
-=======
 
             <form method="POST" action="/index/<%=person.id %>/like-or-unfilled">
               <% if (person.custom.like) { %> <button type="submit" name="actie" value="unfilled">
@@ -98,7 +94,8 @@
 
             </form>
 
-            <img src="/persons/<%= person.name%>.png">
+            <img id="personImage" src="/persons/<%= person.name %>.png"
+              onerror="this.onerror=null;this.src='/persons/No-photo.png';">
 
             <!-- <img src="<% if (person.name) { %>
           /persons/<%= person.name%>.png
@@ -106,7 +103,6 @@
           /persons/<%= person.No-photo%>.png
           <% } %>" alt="student"> -->
 
->>>>>>> Stashed changes
             <h4>
               <%= person.name %>
                 <%= person.surname %>
