@@ -68,14 +68,8 @@
           <li>
             <div class="overlay"></div>
             <div class="gradient"></div>
-            <img src="/persons/<%= person.name%>.png">
-
-            <!-- <img src="<% if (person.name) { %>
-          /persons/<%= person.name%>.png
-          <% } else { %>
-          /persons/<%= person.No-photo%>.png
-          <% } %>" alt="student"> -->
-
+            <img id="personImage" src="/persons/<%= person.name %>.png"
+              onerror="this.onerror=null;this.src='/persons/No-photo.png';">
             <h4>
               <%= person.name %>
                 <%= person.surname %>
