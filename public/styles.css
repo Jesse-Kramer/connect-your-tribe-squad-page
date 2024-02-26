@@ -376,6 +376,10 @@ select {
   animation: rotate-2 12s infinite ease-in-out;
 }
 
+.image-gallery figure:nth-of-type(5)>img {
+  animation: rotate-2 7s infinite ease-in-out;
+}
+
 .halloffame-container::before {
   content: "";
   animation: background 5s infinite linear;
@@ -726,11 +730,6 @@ select {
   }
 }
 
-
-.member-info {
-  display: none;
-}
-
 .overlay {
   background-color: var(--black);
   overflow-y: hidden;
@@ -824,7 +823,6 @@ select {
       border: solid .08em var(--white);
 
       >h4 {
-        transform: matrix(1, 0, 0, 1, 0, 273);
         font-size: 2em;
       }
 
