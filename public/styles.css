@@ -631,9 +631,9 @@ svg {
       >h4 {
         display: flex;
         justify-content: center;
-        transform: matrix(1, 0, 0, 1, 0, -4);
         font-size: 2em;
         z-index: 10;
+        position: relative;
       }
 
       >button {
