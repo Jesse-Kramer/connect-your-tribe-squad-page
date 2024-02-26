@@ -4,8 +4,11 @@ import express from 'express'
 // Importeer de zelfgemaakte functie fetchJson uit de ./helpers map
 import fetchJson from './helpers/fetch-json.js'
 
+// Stel het basis endpoint in
+const apiUrl = 'https://fdnd.directus.app/items'
+
 // Haal alle squads uit de WHOIS API op
-const squadData = await fetchJson('https://fdnd.directus.app/items/squad')
+const squadData = await fetchJson(apiUrl + '/squad')
 
 // Maak een nieuwe express app aan
 const app = express()
@@ -19,18 +22,36 @@ app.set('views', './views')
 // Gebruik de map 'public' voor statische resources, zoals stylesheets, afbeeldingen en client-side JavaScript
 app.use(express.static('public'))
 
-// Zorg dat werken met request data makkelijker wordt
-app.use(express.urlencoded({extended: true}))
-
 // Maak een GET route voor de index
 app.get('/', function (request, response) {
   // Haal alle personen uit de WHOIS API op
-  fetchJson('https://fdnd.directus.app/items/person').then((apiData) => {
+  var query = request.query;
+
+  var url = apiUrl + '/person' ;
+
+  if (query.name || query.id) {
+    var queryString = '?filter={';
+    var filters = [];
+
+    if (query.name) {
+      filters.push('"name":"' + encodeURIComponent(query.name) + '"');
+    }
+
+    if (query.id) {
+      filters.push('"id":"' + encodeURIComponent(query.id) + '"');
+    }
+
+    queryString += filters.join(', ') + '}';
+
+    url += queryString;
+  }
+
+  fetchJson(url).then((apiData) => {
     // apiData bevat gegevens van alle personen uit alle squads
     // Je zou dat hier kunnen filteren, sorteren, of zelfs aanpassen, voordat je het doorgeeft aan de view
 
     // Render index.ejs uit de views map en geef de opgehaalde data mee als variabele, genaamd persons
-    response.render('index', {persons: apiData.data, squads: squadData.data})
+    response.render('index', { persons: apiData.data, squads: squadData.data })
   })
 })
 
@@ -41,11 +62,11 @@ app.post('/', function (request, response) {
 })
 
 // Maak een GET route voor een detailpagina met een request parameter id
-app.get('/detail/:id', function (request, response) {
+app.get('/person/:id', function (request, response) {
   // Gebruik de request parameter id en haal de juiste persoon uit de WHOIS API op
-  fetchJson('https://fdnd.directus.app/items/person/' + request.params.id).then((apiData) => {
-    // Render detail.ejs uit de views map en geef de opgehaalde data mee als variable, genaamd person
-    response.render('detail', {person: apiData.data, squads: squadData.data})
+  fetchJson(apiUrl + '/person/' + request.params.id).then((apiData) => {
+    // Render person.ejs uit de views map en geef de opgehaalde data mee als variable, genaamd person
+    response.render('person', {person: apiData.data, squads: squadData.data})
   })
 })
 
@@ -57,3 +78,4 @@ app.listen(app.get('port'), function () {
   // Toon een bericht in de console en geef het poortnummer door
   console.log(`Application started on http://localhost:${app.get('port')}`)
 })
+
