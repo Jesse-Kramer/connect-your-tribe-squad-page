@@ -25,6 +25,7 @@ app.set('views', './views')
 // Gebruik de map 'public' voor statische resources, zoals stylesheets, afbeeldingen en client-side JavaScript
 app.use(express.static('public'))
 
+
 // Maak een GET route voor de index
 app.get('/', function (request, response) {
   // Haal alle personen uit de WHOIS API op
@@ -83,6 +84,8 @@ app.get('/person/:id', function (request, response) {
     response.render('person', { person: apiData.data, squads: squadData.data })
   })
 })
+
+
 
 // Stel het poortnummer in waar express op moet gaan luisteren
 app.set('port', process.env.PORT || 8000)
