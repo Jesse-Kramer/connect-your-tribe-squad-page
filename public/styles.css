@@ -745,14 +745,14 @@ svg {
 
 }
 
-/* .gradient {
+.gradient {
   background: var(--scarab-75);
   background: linear-gradient(0deg, #19140D 30%, rgba(0, 0, 0, 0) 100%);
   height: 30em;
   width: 100%;
   position: absolute;
   z-index: 4;
-} */
+}
 
 @media (min-width:413px) {
   .header-container div {
