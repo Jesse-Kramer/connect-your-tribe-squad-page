@@ -624,9 +624,10 @@ svg {
       border-top: solid .08em var(--white);
       border-bottom: solid .08em var(--white);
       overflow: hidden;
-      /* display: flex; */
+      display: flex;
       flex-direction: column;
       justify-content: center;
+      align-items: center;
 
       >h4 {
         display: flex;
