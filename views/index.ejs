@@ -71,7 +71,17 @@
 
     <section class="member-container">
       <ul>
-        <% persons.forEach(person=> { %>
+        <% persons.forEach(person=> { 
+          if (person.custom && person.custom != '') {
+            try {
+              person.custom = JSON.parse(person.custom)
+            } catch (e) {
+              console.error('Error parsing JSON:', e)
+              person.custom = {}
+            }
+          } else {
+            person.custom = {}
+          } %>
           <li>
             <div class="overlay"></div>
             <div class="gradient"></div>

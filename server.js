@@ -85,6 +85,36 @@ app.get('/person/:id', function (request, response) {
   })
 })
 
+app.post('/:id/like-or-unlike', function (request, response) {
+  // STAP 1: Haal de huidige gegevens voor deze persoon op, uit de WHOIS API
+  fetchJson('https://fdnd.directus.app/items/person/' + request.params.id).then((apiResponse) => { // Het custom field is een String, dus die moeten we eerst omzetten (= parsen)
+    // naar een Object, zodat we er mee kunnen werken
+    try {
+      apiResponse.data.custom = JSON.parse(apiResponse.data.custom)
+    } catch (e) {
+      apiResponse.data.custom = {}
+    }
+    // STAP 2: Voeg de like toe aan het custom object..
+    if (request.body.action == 'liked') {
+      apiResponse.data.custom.like = true
+    } else {
+      apiResponse.data.custom.like = false
+    }
+    // STAP 3: Overschrijf het custom field voor deze persoon
+    fetchJson('https://fdnd.directus.app/items/person/' + request.params.id, {
+      method: 'PATCH',
+      body: JSON.stringify({
+        custom: apiResponse.data.custom
+      }),
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8'
+      }
+    }).then((patchResponse) => {
+      // Redirect naar de persoon pagina
+      response.redirect(303, '/')
+    })
+  })
+})
 
 
 // Stel het poortnummer in waar express op moet gaan luisteren
