@@ -600,7 +600,23 @@ svg {
   >button {
     padding: 0.25em .3em;
   }
+
+  input {
+    padding: 0.5em;
+    border-style: none;
+    border-radius: 2.5px;
+  }
+
+  .bekijk-resultaten {
+    padding-top: 5px;
+    color: var(--sekhmet-50)
+  }
+
+  .sub-naam {
+    padding-bottom: 5px;
+  }
 }
+
 
 /* -------------section-4----------------
 */
