@@ -111,7 +111,7 @@ app.post('/:id/like-or-unlike', function (request, response) {
       }
     }).then((patchResponse) => {
       // Redirect naar de persoon pagina
-      response.redirect(303, '/')
+      response.redirect(303, '/#members')
     })
   })
 })
